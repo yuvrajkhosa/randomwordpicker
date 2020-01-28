@@ -1,0 +1,82 @@
+html{
+    background: lightblue;
+}
+h1, h2{
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.buttonWrapper{
+        margin-top: 10%;
+        text-align: center;
+}
+.bigButton{
+    width: 150px;
+    height: 60px;
+    
+    box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+	background-color:#ffffff;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#666666;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+}
+
+.addWord{
+    position: relative;
+    display: block;
+    margin: 0 auto;
+    top: 10px;  
+    width: 80px;
+    border-radius: 5px;
+    transition: width 2s;
+    text-align: center;
+}
+
+.addWord:focus{
+    width: 500px;
+    
+}
+.adminCommandsWrapper{
+    width: 1px;
+}
+.clearButton{
+	box-shadow:inset 0px 1px 0px 0px white;
+	width: 100px;
+	background-color: white;
+	border:1px solid white;
+    border-radius:6px;
+	display:inline-block;
+	cursor:pointer;
+	color: black;
+	font-family:Arial;
+	font-size:15px;
+	padding:6px 24px;
+	margin-bottom: 5px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2f6627;
+}
+.greenButtonClass{
+    box-shadow:inset 0px 1px 0px 0px lightgreen;
+	background-color: lightgreen;
+	border:1px solid lightgreen;
+}
+.redButtonClass{
+    box-shadow:inset 0px 1px 0px 0px lightcoral;
+	background-color: lightcoral;
+	border:1px solid lightcoral;
+}
+.clearWordBar{
+  width: 0px;
+  transition: width 2s;
+}
+.passwordGrow{
+    width: 100px;
+}
