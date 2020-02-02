@@ -12,7 +12,7 @@
         <button id="submitModeButton" onclick="submitModePressed();" class="clearButton">Submit mode</button>
         <button id="clearButton" onclick="clearWordsPressed();" class="clearButton">Clear</button>
         <button id="copyWordsButton" onclick="copyWordsPressed();" class="clearButton">Copy Words</button>
-        <input type="password" onblur="clearWordsBarBlur();" placeholder="password" id="clearWordInput" class="clearWordBar">
+        <input type="password" data-lpignore="true" onblur="clearWordsBarBlur();" placeholder="password" id="clearWordInput" class="clearWordBar">
       
     </div>
   
@@ -21,7 +21,7 @@
     <div class="buttonWrapper">
         <button onclick="pickWord();" class="newWordButton">Pick Word</button>
         <h2 id="word"></h2>
-        <input type="text" class="addWord" placeholder="Add Word" id="addWordInput">
+        <input type="text" data-lpignore="true" class="addWord" placeholder="Add Word" id="addWordInput">
     </div>
 
     <script src="index.js"></script>
