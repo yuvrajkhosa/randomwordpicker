@@ -6,10 +6,10 @@ h1, h2{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 .buttonWrapper{
-        margin-top: 10%;
-        text-align: center;
+    margin-top: 10%;
+    text-align: center;
 }
-.bigButton{
+.newWordButton{
     width: 150px;
     height: 60px;
     
@@ -45,7 +45,7 @@ h1, h2{
     
 }
 .adminCommandsWrapper{
-    width: 1px;
+	width: 1px;
 }
 .clearButton{
 	box-shadow:inset 0px 1px 0px 0px white;
@@ -62,6 +62,7 @@ h1, h2{
 	margin-bottom: 5px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #2f6627;
+	
 }
 .greenButtonClass{
     box-shadow:inset 0px 1px 0px 0px lightgreen;
