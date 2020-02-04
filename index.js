@@ -1,5 +1,6 @@
 let localWords = [];//Declare object that contains a single key. Key's value is an array with words.
 let isSubmitMode;
+let lastWord = undefined;
 let stringJSON;//Declare StringJSON so we could use it is submitWord();
 const INPUT_BAR = document.getElementById("addWordInput");//Add Words input bar Object.
 const CLEAR_WORDS_BAR = document.getElementById("clearWordInput");
@@ -14,23 +15,25 @@ const TYPE_OF_REQUESTS = {
     clear : "clear",
     submitWord : "submitWord",
     submitMode: "submitMode",
-    copyWords: "copyWords"
+    copyWords: "copyWords",
+    removeLastWord: "removeLastWord"
 }
 window.onload = async () => {
     let wordsPromise = await retrieveWords();
     updateDatabase(wordsPromise);
     if(isSubmitMode){
-        document.getElementById("submitModeButton").classList.remove("greenButtonClass");
-    } 
-    else{
         document.getElementById("submitModeButton").classList.add("greenButtonClass");
-    }
+    } 
+    
 }   
 
 INPUT_BAR.addEventListener("keyup", (event) => {//Check for when 'Enter' key is pressed and submit word to database
     if (event.keyCode === ENTER_KEY) {
      event.preventDefault();
-     submitWord(TYPE_OF_REQUESTS.submitWord, INPUT_BAR.value);//Submit the word to database
+     if(INPUT_BAR.value.trim().length == 0){//If empty value given. Trim removes trailing whitespace and leading whitespace. So if nothing is there then length will be 0.
+         return;//If empty value recieved
+     }
+     submitWord(TYPE_OF_REQUESTS.submitWord, INPUT_BAR.value.trim());//Submit the word to database. remove trailing/leading whitespace
      INPUT_BAR.value = "";//Clear the input bar
     }
 });
@@ -60,6 +63,13 @@ function pickWord(){//When Pick Word button is clicked
     }
 }
 
+function removeLastWord(){
+    if(!lastWord){
+        return;
+    }
+    submitWord(TYPE_OF_REQUESTS.removeLastWord);
+}
+
 async function submitWord(typeOfRequest, word){//This function sends to database with a put method. If a boolean value is given, means to enable disable submit mode OR remove all words from database. If string, then submit new word
     let currentDatabaseObj = await retrieveWords();//Must fetch current words from database, otherwise each client have different local databasese and they OVERWRITE the database with their old and not-updated local databases
     updateDatabase(currentDatabaseObj);//Update local Datatbase
@@ -67,7 +77,20 @@ async function submitWord(typeOfRequest, word){//This function sends to database
     switch(typeOfRequest){
         case(TYPE_OF_REQUESTS.submitWord):
             localWords.push(word);//Add the word to the local database now, which is a object
-            inputBarText = "Added Word";//Make bar say word that we added
+            inputBarText = "Added Word: " + word;//Make bar say word that we added
+            lastWord = word;
+            document.getElementById("lastWordHeading").innerHTML = "Last Word: " + lastWord;
+        break;
+
+        case(TYPE_OF_REQUESTS.submitMode):
+            isSubmitMode = !isSubmitMode;
+            if(isSubmitMode){
+                document.getElementById("submitModeButton").classList.add("greenButtonClass");
+            } 
+            else{
+                document.getElementById("submitModeButton").classList.remove("greenButtonClass");
+            }
+            inputBarText = "Submit Mode Toggled";
         break;
 
         case(TYPE_OF_REQUESTS.clear):
@@ -75,12 +98,13 @@ async function submitWord(typeOfRequest, word){//This function sends to database
             inputBarText = "Words Clear!";
         break;
 
-        case(TYPE_OF_REQUESTS.submitMode):
-            isSubmitMode = !isSubmitMode;//We have updated database from line 50. So just change isSubmitMode in local database then that will be sent to API
+        case(TYPE_OF_REQUESTS.removeLastWord):
+            localWords.splice(localWords.indexOf(lastWord), 1);
+            inputBarText = "Removed: " + lastWord;
+            document.getElementById("lastWordHeading").innerHTML = "";
         break;
     }
     let stringJSON = JSON.stringify( { 'words' : localWords, 'isSubmitMode' : isSubmitMode});
-
     
     
     let sendWord = await fetch(URL, //Fetch to do a 'PUT' request
@@ -130,13 +154,6 @@ CLEAR_WORDS_BAR.addEventListener("keyup", (event) => {//Check for when 'Enter' k
             switch(currentRequestType){//Go through the current buttons
                 case(TYPE_OF_REQUESTS.submitMode)://Submit Mode | Currently, submit mode can only be triggered by a page reload or by submitting a word and updating everything
                     submitWord(currentRequestType);//Send to disable picking words
-                    if(isSubmitMode){
-                        document.getElementById("submitModeButton").classList.remove("greenButtonClass");
-                    } 
-                    else{
-                        document.getElementById("submitModeButton").classList.add("greenButtonClass");
-                    }
-                    
                 break;
 
                 case(TYPE_OF_REQUESTS.clear)://Clear Database
@@ -146,12 +163,10 @@ CLEAR_WORDS_BAR.addEventListener("keyup", (event) => {//Check for when 'Enter' k
                 break;
 
                 case(TYPE_OF_REQUESTS.copyWords):
-
-                
-                retrieveWords().then((words) => {//Get the words updated
-                    updateDatabase(words);
-                    copyWords();
-                })
+                    retrieveWords().then((words) => {//Get the words updated
+                        updateDatabase(words);
+                        copyWords();
+                    })
                 
                 break;
             }
@@ -170,6 +185,12 @@ CLEAR_WORDS_BAR.addEventListener("keyup", (event) => {//Check for when 'Enter' k
 function updateDatabase(json){//Function to fetch database words and update local database
     localWords = json.words;
     isSubmitMode = json.isSubmitMode;
+    if(isSubmitMode){
+        document.getElementById("submitModeButton").classList.add("greenButtonClass");
+    } 
+    else{
+        document.getElementById("submitModeButton").classList.remove("greenButtonClass");
+    }
 }
 
 function clearWordsBarBlur(){//When we click off input bar clear it and remove the grow class
@@ -179,7 +200,7 @@ function clearWordsBarBlur(){//When we click off input bar clear it and remove t
 
 function copyWords(){//Copy all words to clipboard as a list without quotes Eg. Horse, Animals, Sheep
     const wordsList = localWords.join(", ")
-    console.log(wordsList);
+    //console.log(wordsList);
     if(!navigator.clipboard){
         document.getElementById(currentButtonDOMID).classList.add("redButtonClass");//If password was wrong, make button red and remove redButtonClass after 3 seconds
         setTimeout(() =>  document.getElementById(currentButtonDOMID).classList.remove("redButtonClass"), BUTTON_FAILED_DURATION);
@@ -193,7 +214,7 @@ function copyWords(){//Copy all words to clipboard as a list without quotes Eg. 
         //     console.error('Failed to copy!', err)
         //   }
         navigator.clipboard.writeText(wordsList).then(() => {
-            console.log("COPIED!");
+            //console.log("COPIED!");
             document.getElementById(currentButtonDOMID).classList.add("greenButtonClass");
             setTimeout(() =>  document.getElementById(currentButtonDOMID).classList.remove("greenButtonClass"), BUTTON_FAILED_DURATION);
         }).catch(err => console.error(err));

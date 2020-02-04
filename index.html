@@ -17,9 +17,11 @@
     </div>
   
     <h1>Random Word Picker</h1>
+    <h2 id="lastWordHeading"></h2>
   
     <div class="buttonWrapper">
         <button onclick="pickWord();" class="newWordButton">Pick Word</button>
+        <button onclick="removeLastWord();" class="removeLastWordButton">Remove</button>
         <h2 id="word"></h2>
         <input type="text" data-lpignore="true" class="addWord" placeholder="Add Word" id="addWordInput">
     </div>
