@@ -19,6 +19,12 @@ const TYPE_OF_REQUESTS = {
 window.onload = async () => {
     let wordsPromise = await retrieveWords();
     updateDatabase(wordsPromise);
+    if(isSubmitMode){
+        document.getElementById("submitModeButton").classList.remove("greenButtonClass");
+    } 
+    else{
+        document.getElementById("submitModeButton").classList.add("greenButtonClass");
+    }
 }   
 
 INPUT_BAR.addEventListener("keyup", (event) => {//Check for when 'Enter' key is pressed and submit word to database
