@@ -4,13 +4,12 @@ html{
 h1, h2, button, input{
 	text-align: center;
 	font-family: sans-serif;
+	outline: none;
 }
 h1{
 	font-size: 100px;
 }
-button{
-	outline: none;
-}
+
 button:active{
 	position:relative;
 	top:1px;
@@ -23,7 +22,6 @@ button:active{
 .newWordButton{
     width: 200px;
     height: 100px;
-    
 	background-color:#33658A;
 	border-radius:8px;
 	border: 1px solid #dcdcdc;
@@ -37,7 +35,6 @@ button:active{
 .removeLastWordButton{
 	width: 200px;
     height: 100px;
-    
 	background-color:#2F4858;
 	border-radius:8px;
 	border: 1px solid #dcdcdc;
@@ -52,7 +49,7 @@ button:active{
 .addWord{
     padding: 10px;
 	font-size: 16px;
-	width: 100px;
+	width: 200px;
 	transition: width 2s;
 	border-width: 0px;
 	border-color: #CCCCCC;
@@ -72,19 +69,20 @@ button:active{
 	width: 1px;
 }
 .clearButton{
-	box-shadow:inset 0px 1px 0px 0px white;
-	width: 100px;
-	background-color: white;
-	border:1px solid white;
+	box-shadow:inset 0px 1px 0px 0px #669EC1;
+	width: 120px;
+	height: 60px;
+	background-color: #669EC1;
+	border:1px solid #FFFFFF;
     border-radius:6px;
 	display:inline-block;
 	cursor:pointer;
-	color: black;
-	font-size:15px;
+	font-style: bold;
+	color: white;
+	font-size: 18px;
 	padding:6px 24px;
 	margin-bottom: 5px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #2f6627;
+
 	
 }
 .greenButtonClass{
@@ -98,9 +96,26 @@ button:active{
 	border:1px solid lightcoral;
 }
 .clearWordBar{
-  width: 0px;
-  transition: width 2s;
+	padding: 10px;
+	font-size: 16px;
+	width: 0px;
+	height: 10px;
+	
+	border-width: 0px;
+	border-color: #CCCCCC;
+	text-align: center;
+	background-color: #FFFFFF;
+	color: #000000;
+	border-style: solid;
+	border-radius: 15px;
+	box-shadow: 0px 0px 5px rgba(66,66,66,.75);
+	opacity: 0;
+
+	transition: width 2s, opacity 1s;
+	
 }
+
 .passwordGrow{
-    width: 100px;
+	width: 80px;
+	opacity: 1;
 }
