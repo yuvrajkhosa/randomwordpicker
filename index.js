@@ -76,10 +76,15 @@ async function submitWord(typeOfRequest, word){//This function sends to database
     let inputBarText;
     switch(typeOfRequest){
         case(TYPE_OF_REQUESTS.submitWord):
-            localWords.push(word);//Add the word to the local database now, which is a object
-            inputBarText = "Added Word: " + word;//Make bar say word that we added
-            lastWord = word;
-            document.getElementById("lastWordHeading").innerHTML = "Last Word: " + lastWord;
+            if(!localWords.includes(word)){
+                localWords.push(word);//Add the word to the local database now, which is a object
+                inputBarText = "Added Word: " + word;//Make bar say word that we added
+                lastWord = word;
+                document.getElementById("lastWordHeading").innerHTML = "Last Word: " + lastWord;
+            }
+            else{
+                return;
+            }
         break;
 
         case(TYPE_OF_REQUESTS.submitMode):
