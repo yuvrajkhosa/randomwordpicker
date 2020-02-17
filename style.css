@@ -11,21 +11,20 @@
 	--successButtonColor: #90EE90;
 	--failureButtonColor: #F08080;
 	--addWordBackgroundColor: #FFFFFF;
-	
-	
-	
+}
+@font-face {
+    font-family: font;
+    src: url('font.ttf');
 }
 html{
     background: var(--backgroundColor);
 }
-h1, h2, button, input{
+h1, h2, h3, button, input{
 	text-align: center;
-	font-family: sans-serif;
+	font-family: font, Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 	outline: none;
 }
-h3{
-	font-family: sans-serif;
-}
+
 h1{
 	color: var(--titleTextColor);
 	font-size: 100px;
