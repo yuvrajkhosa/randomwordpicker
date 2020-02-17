@@ -9,9 +9,9 @@
 </head>
 <body>
     <div class="adminCommandsWrapper">
-        <button id="submitModeButton" onclick="submitModePressed();" class="clearButton">Submit mode</button>
-        <button id="clearButton" onclick="clearWordsPressed();" class="clearButton">Clear</button>
-        <button id="copyWordsButton" onclick="copyWordsPressed();" class="clearButton">Copy Words</button>
+        <button id="submitModeButton" onclick="submitModePressed();" class="adminButton">Submit mode</button>
+        <button id="clearButton" onclick="clearWordsPressed();" class="adminButton">Clear</button>
+        <button id="copyWordsButton" onclick="copyWordsPressed();" class="adminButton">Copy Words</button>
         <input type="password" data-lpignore="true" onblur="clearWordsBarBlur();" placeholder="password" id="clearWordInput" class="clearWordBar">
       
     </div>
@@ -20,8 +20,8 @@
     <h2 id="lastWordHeading"></h2>
   
     <div class="buttonWrapper">
-        <button onclick="pickWord();" class="newWordButton">Pick Word</button>
-        <button onclick="removeLastWord();" class="removeLastWordButton">Remove</button>
+        <button onclick="pickWord();" id="pickWord" class="newWordButton">Pick Word</button>
+        <button onclick="removeLastWord();" id="removeLastWord" class="removeLastWordButton">Remove</button>
         <h2 id="word"></h2>
         <h3>Add Word</h2>
         <input type="text" data-lpignore="true" class="addWord" id="addWordInput">

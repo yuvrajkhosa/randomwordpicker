@@ -1,5 +1,22 @@
+:root{
+	--backgroundColor: #86BBD8;
+	--titleTextColor: #000000;
+	--buttonTextColor: #FFFFFF;
+	--adminButtonBackgroundColor:  #65a9cd;
+	--adminButtonBackgroundColorHover: #9fc9e0;
+	--pickWordButton: #33658A;
+	--pickWordButtonHover: #5793c1;
+	--removeLastWordButton: #2F4858;
+	--removeLastWordButtonHover: #3e5f74;
+	--successButtonColor: #90EE90;
+	--failureButtonColor: #F08080;
+	--addWordBackgroundColor: #FFFFFF;
+	
+	
+	
+}
 html{
-    background: #86BBD8;
+    background: var(--backgroundColor);
 }
 h1, h2, button, input{
 	text-align: center;
@@ -10,6 +27,7 @@ h3{
 	font-family: sans-serif;
 }
 h1{
+	color: var(--titleTextColor);
 	font-size: 100px;
 }
 
@@ -25,25 +43,31 @@ button:active{
 .newWordButton{
     width: 200px;
     height: 100px;
-	background-color:#33658A;
+	background-color:var(--pickWordButton);
 	border-radius:8px;
 	border: 1px solid #dcdcdc;
 	display:inline-block;
 	cursor:pointer;
-	color:#ffffff;
+	color:var(--buttonTextColor);
 	font-size: 24px;
 	padding:6px 10px;
 	text-decoration:none;
 }
+#pickWord:hover{
+	background-color:var(--pickWordButtonHover);
+}
+#removeLastWord:hover{
+	background-color: var(--removeLastWordButtonHover);
+}
 .removeLastWordButton{
 	width: 200px;
     height: 100px;
-	background-color:#2F4858;
+	background-color: var(--removeLastWordButton);
 	border-radius:8px;
 	border: 1px solid #dcdcdc;
 	display:inline-block;
 	cursor:pointer;
-	color:#ffffff;
+	color:var(--buttonTextColor);
 	font-size: 24px;
 	padding:6px 10px;
 	text-decoration:none;
@@ -57,7 +81,7 @@ button:active{
 	border-width: 0px;
 	border-color: #CCCCCC;
 	text-align: center;
-	background-color: #FFFFFF;
+	background-color: var(--addWordBackgroundColor);
 	color: #000000;
 	border-style: solid;
 	border-radius: 15px;
@@ -66,37 +90,38 @@ button:active{
 
 .addWord:focus{
     width: 80%;
-    
 }
 .adminCommandsWrapper{
 	width: 1px;
 }
-.clearButton{
-	box-shadow:inset 0px 1px 0px 0px #669EC1;
+.adminButton{
+	box-shadow:inset 0px 1px 0px 0px var(--adminButtonBackgroundColor);
 	width: 120px;
 	height: 60px;
-	background-color: #669EC1;
+	background-color: var(--adminButtonBackgroundColor);
 	border:1px solid #FFFFFF;
     border-radius:6px;
 	display:inline-block;
 	cursor:pointer;
 	font-style: bold;
-	color: white;
+	color:var(--buttonTextColor);
 	font-size: 18px;
 	padding:6px 24px;
 	margin-bottom: 5px;
-
-	
+}
+.adminButton:hover{
+	background-color: var(--adminButtonBackgroundColorHover);
+	border-color: var(--adminButtonBackgroundColorHover);
 }
 .greenButtonClass{
-    box-shadow:inset 0px 1px 0px 0px lightgreen;
-	background-color: lightgreen;
-	border:1px solid lightgreen;
+    box-shadow:inset 0px 1px 0px 0px var(--successButtonColor);
+	background-color: var(--successButtonColor);
+	border:1px solid var(--successButtonColor);
 }
 .redButtonClass{
-    box-shadow:inset 0px 1px 0px 0px lightcoral;
-	background-color: lightcoral;
-	border:1px solid lightcoral;
+    box-shadow:inset 0px 1px 0px 0px var(--failureButtonColor);
+	background-color: var(--failureButtonColor);
+	border:1px solid var(--failureButtonColor);
 }
 .clearWordBar{
 	padding: 10px;
@@ -122,3 +147,8 @@ button:active{
 	width: 80px;
 	opacity: 1;
 }
+@media only screen and (max-width: 800px) {
+	.adminCommandsWrapper{
+		display: flex;
+	}
+  }
