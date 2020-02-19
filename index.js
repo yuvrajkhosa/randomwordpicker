@@ -8,7 +8,7 @@ const CLEAR_PASSWORD = "yuvy";//I can use a better way, like getting this passwo
 const URL = "https://api.myjson.com/bins/vy0qi";//ID of the database in a variable for readability. 
 const ENTER_KEY = 13;
 const INPUT_BAR_SUCCESS_DURATION = 1400;
-const BUTTON_FAILED_DURATION = 3000;
+const BUTTON_COLOUR_DURATION = 3000;
 let currentButton;
 let currentButtonDOMID;
 const TYPE_OF_REQUESTS = {
@@ -76,7 +76,7 @@ async function submitWord(typeOfRequest, word){//This function sends to database
     let inputBarText;
     switch(typeOfRequest){
         case(TYPE_OF_REQUESTS.submitWord):
-            if(!localWords.includes(word)){
+            if(!localWords.map(x => x.toLowerCase()).includes(word.toLowerCase())){//Make both input and local words lowercase, to make sure no duplicates
                 localWords.push(word);//Add the word to the local database now, which is a object
                 inputBarText = "Added Word: " + word;//Make bar say word that we added
                 lastWord = word;
@@ -164,7 +164,7 @@ CLEAR_WORDS_BAR.addEventListener("keyup", (event) => {//Check for when 'Enter' k
                 case(TYPE_OF_REQUESTS.clear)://Clear Database
                     submitWord(currentRequestType);//Submit word with false to remove everything
                     document.getElementById("clearButton").classList.add("greenButtonClass");
-                    setTimeout(() =>  document.getElementById("clearButton").classList.remove("greenButtonClass"), BUTTON_FAILED_DURATION);
+                    setTimeout(() =>  document.getElementById("clearButton").classList.remove("greenButtonClass"), BUTTON_COLOUR_DURATION);
                 break;
 
                 case(TYPE_OF_REQUESTS.copyWords):
@@ -175,12 +175,10 @@ CLEAR_WORDS_BAR.addEventListener("keyup", (event) => {//Check for when 'Enter' k
                 
                 break;
             }
-            
-        
         }
         else{
             document.getElementById(currentButtonDOMID).classList.add("redButtonClass");//If password was wrong, make button red and remove redButtonClass after 3 seconds
-            setTimeout(() =>  document.getElementById(currentButtonDOMID).classList.remove("redButtonClass"), BUTTON_FAILED_DURATION);
+            setTimeout(() =>  document.getElementById(currentButtonDOMID).classList.remove("redButtonClass"), BUTTON_COLOUR_DURATION);
         }
         CLEAR_WORDS_BAR.classList.remove("passwordGrow");//Once Enter is pressed remove growing class to shrink input bar
         CLEAR_WORDS_BAR.value = "";//Make the input bar empty
@@ -208,21 +206,18 @@ function copyWords(){//Copy all words to clipboard as a list without quotes Eg. 
     //console.log(wordsList);
     if(!navigator.clipboard){
         document.getElementById(currentButtonDOMID).classList.add("redButtonClass");//If password was wrong, make button red and remove redButtonClass after 3 seconds
-        setTimeout(() =>  document.getElementById(currentButtonDOMID).classList.remove("redButtonClass"), BUTTON_FAILED_DURATION);
+        setTimeout(() =>  document.getElementById(currentButtonDOMID).classList.remove("redButtonClass"), BUTTON_COLOUR_DURATION);
         return;
     }
     else{
-        // try {
-        //     await navigator.clipboard.writeText(text)
-        //     event.target.textContent = 'Copied to clipboard'
-        //   } catch (err) {
-        //     console.error('Failed to copy!', err)
-        //   }
-        navigator.clipboard.writeText(wordsList).then(() => {
+        navigator.clipboard.writeText(wordsList).then(() => {//If copy to clipboard does not work
             //console.log("COPIED!");
             document.getElementById(currentButtonDOMID).classList.add("greenButtonClass");
-            setTimeout(() =>  document.getElementById(currentButtonDOMID).classList.remove("greenButtonClass"), BUTTON_FAILED_DURATION);
-        }).catch(err => console.error(err));
+            setTimeout(() =>  document.getElementById(currentButtonDOMID).classList.remove("greenButtonClass"), BUTTON_COLOUR_DURATION);
+        }).catch(err => {
+            document.getElementById(currentButtonDOMID).classList.add("redButtonClass");
+            setTimeout(() =>  document.getElementById(currentButtonDOMID).classList.remove("redButtonClass"), BUTTON_COLOUR_DURATION);
+        });
     }
 }
 
