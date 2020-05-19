@@ -5,7 +5,7 @@ let stringJSON;//Declare StringJSON so we could use it is submitWord();
 const INPUT_BAR = document.getElementById("addWordInput");//Add Words input bar Object.
 const CLEAR_WORDS_BAR = document.getElementById("clearWordInput");
 const CLEAR_PASSWORD = "yuvy";//I can use a better way, like getting this password from another database so the password isn't with the client.
-const URL = "https://api.myjson.com/bins/vy0qi";//ID of the database in a variable for readability. 
+const URL = "https://word-database.herokuapp.com/";//ID of the database in a variable for readability. 
 const ENTER_KEY = 13;
 const INPUT_BAR_SUCCESS_DURATION = 1400;
 const BUTTON_COLOUR_DURATION = 3000;
@@ -42,6 +42,8 @@ function retrieveWords(){//Call this function to fetch database words
     return (new Promise(async(resolve) => {
         let wordsPromise = await fetch(URL, {method: 'GET'});//Get the words object, if promise resolves...
         let json = await wordsPromise.json();//Turn it into json, which gives a promise, once promise resolves...
+        console.log("retreiving words: ");
+        console.log(localWords);
         resolve(json);
     }));
    
@@ -186,8 +188,10 @@ CLEAR_WORDS_BAR.addEventListener("keyup", (event) => {//Check for when 'Enter' k
 });
 
 function updateDatabase(json){//Function to fetch database words and update local database
+    console.log("Updating Database");
     localWords = json.words;
     isSubmitMode = json.isSubmitMode;
+    console.log(localWords);
     if(isSubmitMode){
         document.getElementById("submitModeButton").classList.add("greenButtonClass");
     } 
@@ -231,4 +235,3 @@ function retrieveWords(){
     }).catch((err) => console.error(err));
  }
 */
-
