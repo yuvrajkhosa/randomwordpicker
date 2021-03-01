@@ -1,1 +1,0 @@
-java -Xmx3096M -Xms3096M -jar start.jar 
